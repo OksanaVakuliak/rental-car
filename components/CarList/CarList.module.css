@@ -1,0 +1,47 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 150px; /* Відступ знизу як у макеті */
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(
+    4,
+    274px
+  ); /* Рівно 4 колонки по розміру картки */
+  gap: 50px 29px; /* Відступи між картками згідно з макетом */
+  justify-content: center;
+  margin-bottom: 80px;
+  width: 100%;
+}
+
+.loadMore {
+  background: none;
+  border: none;
+  color: var(--button);
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.loadMore:hover {
+  color: var(--button-hover);
+}
+
+.loadMore:disabled {
+  color: var(--gray);
+  cursor: not-allowed;
+}
+
+/* Адаптивність для планшетів та мобілок */
+@media (max-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, 274px);
+    gap: 20px;
+  }
+}

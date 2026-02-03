@@ -1,0 +1,68 @@
+.filterSection {
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+  margin-bottom: 50px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.label {
+  display: block;
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gray);
+  margin-bottom: 8px;
+}
+
+.select,
+.input {
+  background-color: var(--inputs);
+  border: none;
+  border-radius: 14px;
+  padding: 14px 18px;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--main);
+  outline: none;
+  width: 100%;
+}
+
+.brandWrapper {
+  width: 224px;
+}
+.priceWrapper {
+  width: 125px;
+}
+.mileageWrapper {
+  width: 320px;
+}
+
+.mileageInputs {
+  display: flex;
+}
+
+.inputLeft {
+  border-radius: 14px 0 0 14px;
+  border-right: 1px solid rgba(138, 138, 137, 0.2);
+}
+
+.inputRight {
+  border-radius: 0 14px 14px 0;
+}
+
+.searchBtn {
+  background-color: var(--button);
+  color: var(--white);
+  padding: 14px 44px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  height: 48px;
+  transition: background-color 0.2s;
+}
+
+.searchBtn:hover {
+  background-color: var(--button-hover);
+}
