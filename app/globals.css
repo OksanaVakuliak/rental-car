@@ -1,0 +1,68 @@
+:root {
+  --main: #101828;
+  --gray: #8d929a;
+  --gray-light: #dadde1;
+  --badges: #f2f4f7;
+  --inputs: #f7f7f7;
+  --white: #fff;
+  --button: #3470ff;
+  --button-hover: #0b44cd;
+
+  --font-family: "Manrope", sans-serif;
+  --second-family: "Inter", sans-serif;
+
+  --background: var(--white);
+  --foreground: var(--main);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 250ms linear;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+  background: none;
+  transition: all 250ms linear;
+}
+
+input {
+  font-family: inherit;
+}
+
+.text-gray {
+  color: var(--gray);
+}
+
+.font-inter {
+  font-family: var(--second-family);
+}
