@@ -1,0 +1,47 @@
+.main {
+  padding: 40px 20px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.contentWrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: stretch;
+  gap: 40px;
+  align-content: center;
+}
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+}
+
+.galleryWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  aspect-ratio: 640 / 448;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.rightColumn {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+@media screen and (min-width: 768px) {
+  .main {
+    padding: 80px 120px;
+  }
+
+  .contentWrapper {
+    grid-template-columns: 640px 1fr;
+    gap: 64px;
+  }
+}

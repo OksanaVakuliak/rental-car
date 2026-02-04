@@ -52,6 +52,27 @@ const theme = createTheme({
         },
       },
     }),
+    DatePicker: {
+      classNames: {
+        datePickerRoot: css.calendarRoot,
+        calendarHeader: css.calendarHeader,
+        calendarHeaderControl: css.calendarControl,
+        calendarHeaderControlIcon: css.calendarControlIcon,
+        calendarHeaderLevel: css.calendarLabel,
+        weekday: css.calendarWeekday,
+        day: css.calendarDay,
+      },
+    },
+    Popover: {
+      defaultProps: {
+        withArrow: true,
+        arrowSize: 12,
+      },
+      classNames: {
+        dropdown: css.popoverDropdown,
+        arrow: css.popoverArrow,
+      },
+    },
   },
 });
 

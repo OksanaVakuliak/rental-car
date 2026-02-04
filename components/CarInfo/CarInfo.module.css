@@ -1,0 +1,133 @@
+.wrapper {
+  color: var(--main);
+  height: 100%;
+  max-width: 640px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.titleWrapper {
+  display: flex;
+  gap: 16px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.33;
+  color: var(--main);
+  margin-bottom: 8px;
+}
+
+.id {
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--gray);
+  margin-bottom: 8px;
+}
+
+.locationWrapper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 16px;
+
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--main);
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  fill: var(--main);
+}
+
+.mileage {
+  margin-left: 16px;
+}
+
+.price {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.33;
+  color: var(--button);
+}
+
+.description {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--main);
+}
+
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  color: var(--main);
+}
+
+.conditionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.conditionItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--main);
+}
+
+.conditionIcon {
+  line-height: 0;
+}
+
+.specsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0;
+}
+
+.specItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--main);
+}
+
+.specIcon {
+  fill: var(--main);
+}
+
+.featureList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--main);
+}
+
+.checkIcon {
+  fill: var(--main);
+}

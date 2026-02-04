@@ -3,6 +3,7 @@ import { Manrope } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header/Header";
 import { Providers } from "@/providers/MantineProvider";
+import { ToastProvider } from "@/components/ToastProvider/ToastProvider";
 
 const manrope = Manrope({ subsets: ["latin"], weight: ["400", "500", "600"] });
 
@@ -22,6 +23,7 @@ export default function RootLayout({
         <Providers>
           <Header />
           {children}
+          <ToastProvider />
         </Providers>
       </body>
     </html>

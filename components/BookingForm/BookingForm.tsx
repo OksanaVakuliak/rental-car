@@ -2,7 +2,12 @@
 
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import styles from "./BookingForm.module.css";
+import css from "./BookingForm.module.css";
+import { Popover } from "@mantine/core";
+import dayjs from "dayjs";
+import { DatePicker } from "@mantine/dates";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 const BookingSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
@@ -11,17 +16,19 @@ const BookingSchema = Yup.object().shape({
     .required("Date is required")
     .typeError("Please enter a valid date")
     .nullable(),
-  comment: Yup.string(),
+  comment: Yup.string().max(100, "Maximum 100 characters allowed").optional(),
 });
 
 interface FormValues {
   name: string;
   email: string;
-  bookingDate: string;
+  bookingDate: Date | string;
   comment: string;
 }
 
 export const BookingForm = () => {
+  const [opened, setOpened] = useState(false);
+
   const initialValues: FormValues = {
     name: "",
     email: "",
@@ -29,22 +36,26 @@ export const BookingForm = () => {
     comment: "",
   };
 
-  // Використовуємо FormikHelpers<FormValues> замість any
   const handleSubmit = (
     values: FormValues,
     { resetForm }: FormikHelpers<FormValues>,
   ) => {
-    console.log("Booking Data Sent:", values);
+    const formattedData = {
+      ...values,
+      bookingDate: values.bookingDate
+        ? dayjs(values.bookingDate).format("YYYY-MM-DD")
+        : "",
+    };
+    console.log("Booking Data Sent:", formattedData);
 
-    // Нотифікація про вдалу оренду за ТЗ
-    alert("Successful rental! We will contact you soon.");
+    toast.success("Successful rental! We will contact you soon.");
     resetForm();
   };
 
   return (
-    <div className={styles.container}>
-      <h2 className={styles.title}>Book your car now</h2>
-      <p className={styles.subtitle}>
+    <div className={css.container}>
+      <h2 className={css.title}>Book your car now</h2>
+      <p className={css.subtitle}>
         Stay connected! We are always ready to help you.
       </p>
 
@@ -53,63 +64,95 @@ export const BookingForm = () => {
         validationSchema={BookingSchema}
         onSubmit={handleSubmit}
       >
-        {({ isSubmitting }) => (
-          <Form className={styles.form}>
-            <div className={styles.inputWrapper}>
-              <Field name="name" placeholder="Name*" className={styles.input} />
-              <ErrorMessage
-                name="name"
-                component="div"
-                className={styles.error}
-              />
+        {({ isSubmitting, values, setFieldValue }) => (
+          <Form className={css.form} noValidate>
+            <div className={css.inputWrapper}>
+              <Field name="name" placeholder="Name*" className={css.input} />
+              <ErrorMessage name="name" component="div" className={css.error} />
             </div>
 
-            <div className={styles.inputWrapper}>
+            <div className={css.inputWrapper}>
               <Field
                 name="email"
                 type="email"
                 placeholder="Email*"
-                className={styles.input}
+                className={css.input}
               />
               <ErrorMessage
                 name="email"
                 component="div"
-                className={styles.error}
+                className={css.error}
               />
             </div>
 
-            <div className={styles.inputWrapper}>
-              <Field
-                name="bookingDate"
-                type="date"
-                placeholder="Booking date"
-                className={styles.input}
-              />
-              <ErrorMessage
-                name="bookingDate"
-                component="div"
-                className={styles.error}
-              />
+            <div className={css.inputWrapper}>
+              <Popover
+                opened={opened}
+                onChange={setOpened}
+                withArrow
+                shadow="md"
+              >
+                <Popover.Target>
+                  <div onClick={() => setOpened((o) => !o)}>
+                    <Field
+                      name="bookingDate"
+                      placeholder="Booking date"
+                      readOnly
+                      value={
+                        values.bookingDate
+                          ? dayjs(values.bookingDate).format("DD/MM/YYYY")
+                          : ""
+                      }
+                      className={css.input}
+                    />
+                  </div>
+                </Popover.Target>
+
+                <Popover.Dropdown className={css.calendarDropdown}>
+                  <DatePicker
+                    weekdayFormat={(date) => dayjs(date).format("ddd")}
+                    value={
+                      values.bookingDate ? new Date(values.bookingDate) : null
+                    }
+                    onChange={(date) => {
+                      setFieldValue("bookingDate", date);
+                      setOpened(false);
+                    }}
+                    minDate={new Date()}
+                    locale="en"
+                    getDayProps={(date) => ({
+                      style: dayjs(date).isSame(values.bookingDate, "day")
+                        ? { backgroundColor: "var(--button)", color: "white" }
+                        : {},
+                    })}
+                  />
+                </Popover.Dropdown>
+                <ErrorMessage
+                  name="bookingDate"
+                  component="div"
+                  className={css.error}
+                />
+              </Popover>
             </div>
 
-            <div className={styles.inputWrapper}>
+            <div className={css.inputWrapper}>
               <Field
                 name="comment"
                 as="textarea"
                 placeholder="Comment"
-                className={styles.textarea}
+                className={css.textarea}
               />
               <ErrorMessage
                 name="comment"
                 component="div"
-                className={styles.error}
+                className={css.error}
               />
             </div>
 
             <button
               type="submit"
               disabled={isSubmitting}
-              className={styles.submitButton}
+              className={css.submitButton}
             >
               {isSubmitting ? "Sending..." : "Send"}
             </button>
