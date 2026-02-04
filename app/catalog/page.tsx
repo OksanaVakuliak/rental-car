@@ -1,8 +1,8 @@
 import CarList from "@/components/CarList/CarList";
 import { Filters } from "@/components/Filters/Filters";
-
 import { clientApi } from "@/lib/clientApi";
 import { CarQueryParams } from "@/types/car";
+import css from "./CatalogPage.module.css";
 
 interface PageProps {
   searchParams: Promise<CarQueryParams>;
@@ -18,13 +18,13 @@ export default async function CatalogPage({ searchParams }: PageProps) {
   });
 
   return (
-    <main>
+    <section className={css.section}>
       <Filters />
 
       <CarList
         initialCars={initialData.cars}
         totalCars={initialData.totalCars}
       />
-    </main>
+    </section>
   );
 }

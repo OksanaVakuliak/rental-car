@@ -2,46 +2,54 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 150px; /* Відступ знизу як у макеті */
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(
-    4,
-    274px
-  ); /* Рівно 4 колонки по розміру картки */
-  gap: 50px 29px; /* Відступи між картками згідно з макетом */
+  grid-template-columns: minmax(auto, 274px);
+  gap: 30px;
   justify-content: center;
-  margin-bottom: 80px;
+  margin-bottom: 40px;
   width: 100%;
 }
 
+@media only screen and (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 274px);
+    gap: 40px 29px;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 274px);
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .grid {
+    grid-template-columns: repeat(4, 274px);
+    gap: 48px 32px;
+    margin-bottom: 80px;
+  }
+}
+
 .loadMore {
-  background: none;
-  border: none;
-  color: var(--button);
+  color: var(--main);
   font-family: var(--font-family);
   font-size: 16px;
-  font-weight: 500;
-  text-decoration: underline;
+  font-weight: 600;
+  line-height: 1.25;
+
   cursor: pointer;
-  transition: color 0.2s;
+  padding: 12px 38px;
+  min-height: 44px;
+  border: 1px solid var(--button);
+  border-radius: 12px;
+
+  transition: border-color 250ms linear;
 }
 
 .loadMore:hover {
-  color: var(--button-hover);
-}
-
-.loadMore:disabled {
-  color: var(--gray);
-  cursor: not-allowed;
-}
-
-/* Адаптивність для планшетів та мобілок */
-@media (max-width: 1200px) {
-  .grid {
-    grid-template-columns: repeat(auto-fill, 274px);
-    gap: 20px;
-  }
+  border-color: var(--button-hover);
 }

@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { Car } from "@/types/car";
 import { clientApi } from "@/lib/clientApi";
 import { CarCard } from "../CarCard/CarCard";
-import styles from "./CarList.module.css";
+import css from "./CarList.module.css";
 
 interface CarListProps {
   initialCars: Car[];
@@ -18,7 +18,6 @@ export default function CarList({ initialCars, totalCars }: CarListProps) {
   const [isLoading, setIsLoading] = useState(false);
   const searchParams = useSearchParams();
 
-  // Коли змінюються фільтри в URL, скидаємо список до початкових серверних даних
   useEffect(() => {
     setCars(initialCars);
     setPage(1);
@@ -29,7 +28,6 @@ export default function CarList({ initialCars, totalCars }: CarListProps) {
     setIsLoading(true);
 
     try {
-      // Отримуємо поточні фільтри з URL для коректного дозавантаження
       const currentParams = Object.fromEntries(searchParams.entries());
 
       const response = await clientApi.getCars({
@@ -48,8 +46,8 @@ export default function CarList({ initialCars, totalCars }: CarListProps) {
   };
 
   return (
-    <section className={styles.section}>
-      <div className={styles.grid}>
+    <section className={css.section}>
+      <div className={css.grid}>
         {cars.map((car) => (
           <CarCard key={car.id} car={car} />
         ))}
@@ -59,7 +57,7 @@ export default function CarList({ initialCars, totalCars }: CarListProps) {
         <button
           onClick={handleLoadMore}
           disabled={isLoading}
-          className={styles.loadMore}
+          className={css.loadMore}
         >
           {isLoading ? "Loading..." : "Load more"}
         </button>
