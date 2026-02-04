@@ -1,0 +1,81 @@
+.label {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--gray);
+  line-height: 1.33333;
+  margin-bottom: 0;
+}
+
+.input {
+  background-color: var(--inputs);
+  border: none;
+  padding: 12px 16px;
+  min-height: 44px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--main);
+  border-radius: 12px;
+}
+
+.customChevron {
+  fill: var(--main);
+  transition: transform 250ms linear;
+  pointer-events: none;
+}
+
+.input[data-expanded] + :global(.mantine-Select-section) .customChevron {
+  transform: rotate(180deg);
+}
+
+.section .clearButton {
+  background-color: var(--inputs) !important;
+  color: var(--main);
+
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+}
+
+.dropdown {
+  border-radius: 14px;
+  border: 1px solid var(--inputs);
+  padding: 8px;
+  background-color: var(--white);
+}
+
+.option {
+  font-size: 16px;
+  border-radius: 8px;
+  color: var(--gray);
+
+  transition: color 250ms linear;
+}
+
+.option:hover,
+.option[data-combobox-active],
+.option[data-combobox-selected] {
+  background-color: transparent;
+  color: var(--main);
+}
+
+.dropdown :global(.mantine-ScrollArea-viewport) {
+  padding-right: 8px;
+}
+
+.dropdown :global(.mantine-ScrollArea-scrollbar) {
+  background-color: transparent;
+  width: 8px;
+  margin: 4px;
+}
+
+.dropdown :global(.mantine-ScrollArea-thumb) {
+  background-color: rgba(18, 20, 23, 0.1);
+  border-radius: 10px;
+
+  transition: background-color 250ms linear;
+}
+
+.dropdown :global(.mantine-ScrollArea-thumb):hover {
+  background-color: rgba(18, 20, 23, 0.2);
+}

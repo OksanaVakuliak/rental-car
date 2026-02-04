@@ -3,46 +3,44 @@
 import { MantineProvider, createTheme, Select } from "@mantine/core";
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
+import css from "./MantineProvider.module.css";
+
+const CustomChevron = () => (
+  <svg width="13" height="7" viewBox="0 0 59 32" className={css.customChevron}>
+    <use href="/sprite.svg#down" />
+  </svg>
+);
 
 const theme = createTheme({
   primaryColor: "blue",
-  defaultRadius: "14px",
+  defaultRadius: "12px",
   fontFamily: "var(--font-family)",
 
   components: {
     Select: Select.extend({
+      defaultProps: {
+        withCheckIcon: false,
+        rightSection: <CustomChevron />,
+        rightSectionPointerEvents: "none",
+        clearable: true,
+        clearButtonProps: {
+          className: css.clearButton,
+          "aria-label": "Clear input",
+        },
+      },
+      classNames: {
+        root: css.root,
+        label: css.label,
+        input: css.input,
+        dropdown: css.dropdown,
+        option: css.option,
+        section: css.section,
+      },
       styles: {
         root: {
           display: "flex",
           flexDirection: "column",
           gap: "8px",
-        },
-        label: {
-          fontSize: "14px",
-          fontWeight: 500,
-          color: "var(--gray)",
-          marginBottom: 0,
-        },
-        input: {
-          backgroundColor: "var(--inputs)",
-          border: "none",
-          height: "48px",
-          padding: "14px 18px",
-          fontSize: "18px",
-          fontWeight: 500,
-          color: "var(--main)",
-          borderRadius: "14px",
-        },
-        dropdown: {
-          borderRadius: "14px",
-          border: "1px solid rgba(18, 20, 23, 0.05)",
-          padding: "8px",
-        },
-        // Ми прибрали складні селектори звідси, щоб не було помилки
-        option: {
-          fontSize: "16px",
-          borderRadius: "8px",
-          transition: "color 0.2s ease",
         },
       },
     }),
@@ -52,20 +50,6 @@ const theme = createTheme({
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <MantineProvider theme={theme} defaultColorScheme="light">
-      {/* Щоб стилізувати ховер та вибраний елемент без помилок JS, 
-         ми додамо маленький глобальний CSS для Mantine опцій 
-      */}
-      <style jsx global>{`
-        .mantine-Select-option[data-selected],
-        .mantine-Select-option[data-combobox-selected],
-        .mantine-Select-option:hover {
-          background-color: transparent !important;
-          color: var(--main) !important;
-        }
-        .mantine-Select-option {
-          color: rgba(18, 20, 23, 0.2) !important;
-        }
-      `}</style>
       {children}
     </MantineProvider>
   );
