@@ -11,13 +11,14 @@ interface CarCardProps {
 }
 
 export const CarCard = ({ car }: CarCardProps) => {
-  const isFavorite = useFavoritesStore((state) => state.isFavorite);
+  const favorites = useFavoritesStore((state) => state.favorites);
   const toggleFavorite = useFavoritesStore((state) => state.toggleFavorite);
 
-  const favorite = isFavorite(car.id);
+  const favorite = favorites.some((fav) => fav.id === car.id);
 
   const handleFavoriteClick = (e: React.MouseEvent) => {
     e.preventDefault();
+    e.stopPropagation();
     toggleFavorite(car);
   };
 

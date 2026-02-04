@@ -20,6 +20,7 @@ const theme = createTheme({
     Select: Select.extend({
       defaultProps: {
         withCheckIcon: false,
+
         rightSection: <CustomChevron />,
         rightSectionPointerEvents: "none",
         clearable: true,
@@ -28,6 +29,8 @@ const theme = createTheme({
           "aria-label": "Clear input",
         },
         comboboxProps: {
+          withinPortal: true,
+          withArrow: false,
           transitionProps: {
             transition: "scale-y",
             duration: 250,
@@ -49,6 +52,13 @@ const theme = createTheme({
           display: "flex",
           flexDirection: "column",
           gap: "8px",
+        },
+        dropdown: {
+          borderRadius: "14px",
+          border: "1px solid var(--inputs)",
+          padding: "8px",
+          backgroundColor: "var(--white)",
+          boxShadow: "0px 4px 36px 0px rgba(0, 0, 0, 0.02)",
         },
       },
     }),

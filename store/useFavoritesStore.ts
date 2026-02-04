@@ -5,7 +5,6 @@ import { Car } from "@/types/car";
 interface FavoritesState {
   favorites: Car[];
   toggleFavorite: (car: Car) => void;
-  isFavorite: (carId: string) => boolean;
 }
 
 export const useFavoritesStore = create<FavoritesState>()(
@@ -24,7 +23,6 @@ export const useFavoritesStore = create<FavoritesState>()(
           }));
         }
       },
-      isFavorite: (carId) => get().favorites.some((fav) => fav.id === carId),
     }),
     { name: "favorites-storage" },
   ),

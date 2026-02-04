@@ -6,7 +6,8 @@ import { Car } from "@/types/car";
 import { clientApi } from "@/lib/clientApi";
 import { CarCard } from "../CarCard/CarCard";
 import css from "./CarList.module.css";
-import { HydrationProvider } from "@/providers/HydrationProvider";
+import { HydrationProvider } from "@/components/HydrationProvider/HydrationProvider";
+import { Loader } from "../Loader/Loader";
 
 interface CarListProps {
   initialCars: Car[];
@@ -49,11 +50,11 @@ export default function CarList({ initialCars, totalCars }: CarListProps) {
   return (
     <section className={css.section}>
       <div className={css.grid}>
-        <HydrationProvider>
-          {cars.map((car) => (
-            <CarCard key={car.id} car={car} />
-          ))}
-        </HydrationProvider>
+        {cars.map((car) => (
+          <HydrationProvider key={car.id}>
+            <CarCard car={car} />
+          </HydrationProvider>
+        ))}
       </div>
 
       {cars.length < totalCars && (
@@ -62,7 +63,7 @@ export default function CarList({ initialCars, totalCars }: CarListProps) {
           disabled={isLoading}
           className={css.loadMore}
         >
-          {isLoading ? "Loading..." : "Load more"}
+          Load more
         </button>
       )}
     </section>

@@ -3,6 +3,8 @@ import { Filters } from "@/components/Filters/Filters";
 import { clientApi } from "@/lib/clientApi";
 import { CarQueryParams } from "@/types/car";
 import css from "./CatalogPage.module.css";
+import { Suspense } from "react";
+import { Loader } from "@/components/Loader/Loader";
 
 interface PageProps {
   searchParams: Promise<CarQueryParams>;
@@ -19,12 +21,14 @@ export default async function CatalogPage({ searchParams }: PageProps) {
 
   return (
     <section className={css.section}>
-      <Filters />
+      <Suspense fallback={<Loader />}>
+        <Filters />
 
-      <CarList
-        initialCars={initialData.cars}
-        totalCars={initialData.totalCars}
-      />
+        <CarList
+          initialCars={initialData.cars}
+          totalCars={initialData.totalCars}
+        />
+      </Suspense>
     </section>
   );
 }

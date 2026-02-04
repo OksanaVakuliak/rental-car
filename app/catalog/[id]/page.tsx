@@ -14,9 +14,7 @@ export default async function CarDetailPage({ params }: PageProps) {
 
   const car = await clientApi.getCarById(id).catch(() => null);
 
-  if (!car) {
-    notFound();
-  }
+  if (!car) return notFound();
 
   return (
     <main className={css.main}>

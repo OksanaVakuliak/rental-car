@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header/Header";
-import { Providers } from "@/providers/MantineProvider";
+import { Providers } from "@/components/MantineProvider/MantineProvider";
 import { ToastProvider } from "@/components/ToastProvider/ToastProvider";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 const manrope = Manrope({ subsets: ["latin"], weight: ["400", "500", "600"] });
 
@@ -22,7 +24,8 @@ export default function RootLayout({
       <body className={manrope.className}>
         <Providers>
           <Header />
-          {children}
+          <Suspense fallback={<Loading />}>{children}</Suspense>
+
           <ToastProvider />
         </Providers>
       </body>
