@@ -27,7 +27,15 @@ const theme = createTheme({
           className: css.clearButton,
           "aria-label": "Clear input",
         },
+        comboboxProps: {
+          transitionProps: {
+            transition: "scale-y",
+            duration: 250,
+            timingFunction: "linear",
+          },
+        },
       },
+
       classNames: {
         root: css.root,
         label: css.label,

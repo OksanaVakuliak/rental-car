@@ -1,8 +1,8 @@
 .filterSection {
   display: flex;
   align-items: flex-end;
-  gap: 18px;
-  margin-bottom: 50px;
+  gap: 16px;
+  margin-bottom: 56px;
   justify-content: center;
   flex-wrap: wrap;
 }
@@ -10,57 +10,87 @@
 .label {
   display: block;
   font-family: var(--font-family);
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.33333;
   color: var(--gray);
   margin-bottom: 8px;
 }
 
-.select,
 .input {
   background-color: var(--inputs);
   border: none;
-  border-radius: 14px;
-  padding: 14px 18px;
-  font-size: 18px;
+  border-radius: 12px;
+  padding: 12px 24px;
+  min-height: 44px;
+  font-size: 16px;
   font-weight: 500;
+  line-height: 1.25;
   color: var(--main);
   outline: none;
-  width: 100%;
-}
-
-.brandWrapper {
-  width: 224px;
-}
-.priceWrapper {
-  width: 125px;
-}
-.mileageWrapper {
-  width: 320px;
 }
 
 .mileageInputs {
   display: flex;
+  align-items: center;
+}
+
+.inputContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.errorLabel {
+  color: #f03e3e;
+  font-size: 10px;
+  position: absolute;
+  bottom: -14px;
+  left: 4px;
+}
+
+.prefix {
+  position: absolute;
+  left: 24px;
+  top: 12px;
+  font-family: var(--font-family);
+  font-size: 16px;
+  line-height: 1.25;
+  font-weight: 500;
+  color: var(--main);
+  pointer-events: none;
 }
 
 .inputLeft {
-  border-radius: 14px 0 0 14px;
-  border-right: 1px solid rgba(138, 138, 137, 0.2);
+  border-radius: 12px 0 0 12px;
+  border-right: 1px solid var(--gray-light);
+  padding: 12px 12px 12px 65px;
+  width: 160px;
 }
 
 .inputRight {
-  border-radius: 0 14px 14px 0;
+  border-radius: 0 12px 12px 0;
+  padding: 12px 12px 12px 45px;
+  width: 160px;
+}
+
+.input[type="number"]::-webkit-outer-spin-button,
+.input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .searchBtn {
   background-color: var(--button);
   color: var(--white);
-  padding: 14px 44px;
+  min-height: 44px;
+  padding: 12px 51px;
   border-radius: 12px;
   font-weight: 600;
-  font-size: 14px;
-  height: 48px;
-  transition: background-color 0.2s;
+  font-size: 16px;
+
+  transition: background-color 250ms linear;
 }
 
 .searchBtn:hover {

@@ -11,11 +11,16 @@
   border: none;
   padding: 12px 16px;
   min-height: 44px;
+  width: 200px;
   font-size: 16px;
   font-weight: 500;
   line-height: 1.25;
   color: var(--main);
   border-radius: 12px;
+}
+.input::placeholder {
+  color: var(--main);
+  opacity: 1;
 }
 
 .customChevron {

@@ -3,10 +3,11 @@
 import { useEffect, useState } from "react";
 import { Formik, Form, Field, FormikHelpers } from "formik";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Select } from "@mantine/core"; // Імпортуємо Select
+import { Select } from "@mantine/core";
 import { clientApi } from "@/lib/clientApi";
 import { CarQueryParams, GetBrandsResponse } from "@/types/car";
-import styles from "./Filters.module.css";
+import * as Yup from "yup";
+import css from "./Filters.module.css";
 
 export const Filters = () => {
   const router = useRouter();
@@ -17,9 +18,10 @@ export const Filters = () => {
     clientApi.getBrands().then(setBrands).catch(console.error);
   }, []);
 
-  const prices = Array.from({ length: 15 }, (_, i) =>
-    ((i + 1) * 10).toString(),
-  );
+  const prices = Array.from({ length: 15 }, (_, i) => {
+    const val = ((i + 1) * 10).toString();
+    return { value: val, label: `To $${val}` };
+  });
 
   const initialValues: CarQueryParams = {
     brand: searchParams.get("brand") || "",
@@ -40,16 +42,29 @@ export const Filters = () => {
     setSubmitting(false);
   };
 
+  const mileageValidationSchema = Yup.object().shape({
+    minMileage: Yup.number()
+      .typeError("Must be a number")
+      .min(0, "Cannot be negative"),
+    maxMileage: Yup.number()
+      .typeError("Must be a number")
+      .min(0, "Cannot be negative")
+      .test("is-greater", "Must be greater than 'From'", function (value) {
+        const { minMileage } = this.parent;
+        return !value || !minMileage || value >= minMileage;
+      }),
+  });
+
   return (
     <Formik
       initialValues={initialValues}
+      validationSchema={mileageValidationSchema}
       enableReinitialize
       onSubmit={handleSubmit}
     >
-      {({ values, setFieldValue }) => (
-        <Form className={styles.filterSection}>
-          {/* Кастомний Селект для Брендів */}
-          <div className={styles.brandWrapper}>
+      {({ values, setFieldValue, errors, touched }) => (
+        <Form className={css.filterSection}>
+          <div className={css.brandWrapper}>
             <Select
               label="Car brand"
               placeholder="Choose a brand"
@@ -61,37 +76,49 @@ export const Filters = () => {
             />
           </div>
 
-          {/* Кастомний Селект для Ціни */}
-          <div className={styles.priceWrapper}>
+          <div className={css.priceWrapper}>
             <Select
               label="Price/ 1 hour"
-              placeholder="To $"
+              placeholder="Choose a price"
               data={prices}
               value={values.rentalPrice}
               onChange={(value) => setFieldValue("rentalPrice", value)}
+              renderOption={({ option }) => option.value}
               clearable
+              searchable
             />
           </div>
 
-          <div className={styles.mileageWrapper}>
-            <label className={styles.label}>Car mileage / km</label>
-            <div className={styles.mileageInputs}>
-              <Field
-                name="minMileage"
-                type="number"
-                placeholder="From"
-                className={`${styles.input} ${styles.inputLeft}`}
-              />
-              <Field
-                name="maxMileage"
-                type="number"
-                placeholder="To"
-                className={`${styles.input} ${styles.inputRight}`}
-              />
+          <div className={css.mileageWrapper}>
+            <label className={css.label}>Car mileage / km</label>
+            <div className={css.mileageInputs}>
+              <div className={css.inputContainer}>
+                <span className={css.prefix}>From</span>
+                <Field
+                  name="minMileage"
+                  type="number"
+                  className={`${css.input} ${css.inputLeft}`}
+                />
+                {touched.minMileage && errors.minMileage && (
+                  <div className={css.errorLabel}>{errors.minMileage}</div>
+                )}
+              </div>
+
+              <div className={css.inputContainer}>
+                <span className={css.prefix}>To</span>
+                <Field
+                  name="maxMileage"
+                  type="number"
+                  className={`${css.input} ${css.inputRight}`}
+                />
+                {touched.maxMileage && errors.maxMileage && (
+                  <div className={css.errorLabel}>{errors.maxMileage}</div>
+                )}
+              </div>
             </div>
           </div>
 
-          <button type="submit" className={styles.searchBtn}>
+          <button type="submit" className={css.searchBtn}>
             Search
           </button>
         </Form>
