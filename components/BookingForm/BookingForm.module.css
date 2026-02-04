@@ -51,7 +51,7 @@
 }
 
 .error {
-  color: #ff4d4d; /* Червоний для помилок */
+  color: #ff4d4d;
   font-size: 12px;
   margin-top: 4px;
 }
@@ -64,7 +64,6 @@
   font-weight: 600;
   margin-top: 10px;
   border: none;
-  cursor: pointer;
   transition: background-color 0.2s ease-in-out;
 }
 

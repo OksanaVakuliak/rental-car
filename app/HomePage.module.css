@@ -43,7 +43,6 @@
   line-height: 1.25;
   color: var(--white);
   background-color: var(--button);
-  cursor: pointer;
   transition: background-color 250ms linear;
 }
 

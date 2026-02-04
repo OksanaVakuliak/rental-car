@@ -3,71 +3,76 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Car } from "@/types/car";
-import styles from "./CarCard.module.css";
+import { useFavoritesStore } from "@/store/useFavoritesStore";
+import css from "./CarCard.module.css";
 
 interface CarCardProps {
   car: Car;
 }
 
 export const CarCard = ({ car }: CarCardProps) => {
-  // Тимчасова логіка (скоро замінимо на Zustand)
-  const isFavorite = false;
+  const isFavorite = useFavoritesStore((state) => state.isFavorite);
+  const toggleFavorite = useFavoritesStore((state) => state.toggleFavorite);
+
+  const favorite = isFavorite(car.id);
+
+  const handleFavoriteClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    toggleFavorite(car);
+  };
 
   const addressParts = car.address.split(",");
   const city = addressParts[1]?.trim() || "Unknown";
   const country = addressParts[2]?.trim() || "Unknown";
 
   return (
-    <div className={styles.card}>
-      <div className={styles.imageWrapper}>
+    <div className={css.card}>
+      <div className={css.imageWrapper}>
         <Image
           src={car.img}
           alt={`${car.brand} ${car.model}`}
           fill
-          priority={false}
           sizes="274px"
-          className={styles.image}
+          className={css.image}
           style={{ objectFit: "cover" }}
         />
-
         <button
           type="button"
-          className={styles.favoriteBtn}
-          aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+          className={css.favoriteBtn}
+          onClick={handleFavoriteClick}
+          aria-label={favorite ? "Remove from favorites" : "Add to favorites"}
         >
-          <svg className={styles.heartIcon}>
-            {/* Використовуємо іконку залежно від стану isFavorite */}
-            <use href={`/sprite.svg#${isFavorite ? "Love-blue" : "Love"}`} />
+          <svg
+            width="16"
+            height="16"
+            className={`${css.heartIcon} ${favorite ? css.active : ""}`}
+          >
+            <use href={`/sprite.svg#${favorite ? "love-blue" : "love"}`} />
           </svg>
         </button>
       </div>
 
-      <div className={styles.titleLine}>
-        <h2 className={styles.titleText}>
-          {car.brand} <span className={styles.model}>{car.model}</span>,{" "}
-          {car.year}
+      <div className={css.titleLine}>
+        <h2 className={css.titleText}>
+          {car.brand} <span className={css.model}>{car.model}</span>, {car.year}
         </h2>
-        <span className={styles.price}>${car.rentalPrice}</span>
+        <span className={css.price}>${car.rentalPrice}</span>
       </div>
 
-      <div className={styles.infoLine}>
+      <div className={css.infoLine}>
         <span>{city}</span>
-        <span className={styles.divider}>|</span>
+        <span className={css.divider}>|</span>
         <span>{country}</span>
-        <span className={styles.divider}>|</span>
+        <span className={css.divider}>|</span>
         <span>{car.rentalCompany}</span>
-        <span className={styles.divider}>|</span>
+        <span className={css.divider}>|</span>
         <span>{car.type}</span>
-        <span className={styles.divider}>|</span>
-        <span>{car.model}</span>
-        <span className={styles.divider}>|</span>
-        <span>{car.id.split("-")[0]}</span> {/* Скорочуємо довгий ID */}
-        <span className={styles.divider}>|</span>
-        <span>{car.functionalities[0]}</span>
+        <span className={css.divider}>|</span>
+        <span>{car.mileage.toLocaleString("en-US")} km</span>
       </div>
 
-      <Link href={`/catalog/${car.id}`} className={styles.learnMoreBtn}>
-        Learn more
+      <Link href={`/catalog/${car.id}`} className={css.readMoreBtn}>
+        Read more
       </Link>
     </div>
   );

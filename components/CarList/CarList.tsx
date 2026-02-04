@@ -6,6 +6,7 @@ import { Car } from "@/types/car";
 import { clientApi } from "@/lib/clientApi";
 import { CarCard } from "../CarCard/CarCard";
 import css from "./CarList.module.css";
+import { HydrationProvider } from "@/providers/HydrationProvider";
 
 interface CarListProps {
   initialCars: Car[];
@@ -48,9 +49,11 @@ export default function CarList({ initialCars, totalCars }: CarListProps) {
   return (
     <section className={css.section}>
       <div className={css.grid}>
-        {cars.map((car) => (
-          <CarCard key={car.id} car={car} />
-        ))}
+        <HydrationProvider>
+          {cars.map((car) => (
+            <CarCard key={car.id} car={car} />
+          ))}
+        </HydrationProvider>
       </div>
 
       {cars.length < totalCars && (

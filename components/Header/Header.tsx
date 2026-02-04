@@ -9,30 +9,32 @@ export default function Header() {
 
   return (
     <header className={css.header}>
-      <Link href={"/"} className={css.logo}>
-        <svg width="104" height="16" className={css.logoIcon}>
-          <use href="/sprite.svg#logo"></use>
-        </svg>
-      </Link>
+      <div className={css.container}>
+        <Link href={"/"} className={css.logo}>
+          <svg width="104" height="16" className={css.logoIcon}>
+            <use href="/sprite.svg#logo"></use>
+          </svg>
+        </Link>
 
-      <ul className={css.navigationList}>
-        <li>
-          <Link
-            href={"/"}
-            className={`${css.linkItem} ${pathname === "/" ? css.active : ""}`}
-          >
-            Home
-          </Link>
-        </li>
-        <li>
-          <Link
-            href={"/catalog"}
-            className={`${css.linkItem} ${pathname.startsWith("/catalog") ? css.active : ""}`}
-          >
-            Catalog
-          </Link>
-        </li>
-      </ul>
+        <ul className={css.navigationList}>
+          <li>
+            <Link
+              href={"/"}
+              className={`${css.linkItem} ${pathname === "/" ? css.active : ""}`}
+            >
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link
+              href={"/catalog"}
+              className={`${css.linkItem} ${pathname.startsWith("/catalog") ? css.active : ""}`}
+            >
+              Catalog
+            </Link>
+          </li>
+        </ul>
+      </div>
     </header>
   );
 }

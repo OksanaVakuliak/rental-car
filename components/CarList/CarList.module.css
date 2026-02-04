@@ -6,7 +6,7 @@
 
 .grid {
   display: grid;
-  grid-template-columns: minmax(auto, 274px);
+  grid-template-columns: minmax(auto, 276px);
   gap: 30px;
   justify-content: center;
   margin-bottom: 40px;
@@ -15,20 +15,20 @@
 
 @media only screen and (min-width: 768px) {
   .grid {
-    grid-template-columns: repeat(2, 274px);
+    grid-template-columns: repeat(2, 276px);
     gap: 40px 29px;
   }
 }
 
 @media only screen and (min-width: 1024px) {
   .grid {
-    grid-template-columns: repeat(3, 274px);
+    grid-template-columns: repeat(3, 276px);
   }
 }
 
 @media only screen and (min-width: 1440px) {
   .grid {
-    grid-template-columns: repeat(4, 274px);
+    grid-template-columns: repeat(4, 276px);
     gap: 48px 32px;
     margin-bottom: 80px;
   }
@@ -41,7 +41,6 @@
   font-weight: 600;
   line-height: 1.25;
 
-  cursor: pointer;
   padding: 12px 38px;
   min-height: 44px;
   border: 1px solid var(--button);

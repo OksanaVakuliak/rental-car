@@ -1,47 +1,96 @@
 .card {
-  width: 274px; /* Фіксована ширина згідно з макетом */
+  width: 276px;
   display: flex;
   flex-direction: column;
-  height: 100%; /* Щоб всі картки були однакової висоти */
+  height: 100%;
 }
 
 .imageWrapper {
-  position: relative; /* ОБОВ'ЯЗКОВО для роботи Next Image fill */
+  position: relative;
   width: 100%;
   height: 268px;
   border-radius: 14px;
-  overflow: hidden; /* Щоб картинка не виходила за межі радіуса */
+  overflow: hidden;
   margin-bottom: 14px;
 }
 
 .titleLine {
   display: flex;
   justify-content: space-between;
+
+  margin-bottom: 8px;
+}
+
+.titleText {
   font-weight: 500;
   font-size: 16px;
-  margin-bottom: 8px;
+  line-height: 1.25;
+  color: var(--main);
+}
+
+.model {
+  color: var(--button);
+}
+
+.price {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--main);
 }
 
 .infoLine {
   display: flex;
   flex-wrap: wrap;
   gap: 4px 6px;
-  color: rgba(18, 20, 23, 0.5);
+  color: var(--gray);
   font-size: 12px;
-  margin-bottom: 28px;
-  /* Обмежуємо висоту тексту, щоб кнопки були на одному рівні */
-  height: 40px;
+  line-height: 1.33;
+  margin-bottom: 32px;
   overflow: hidden;
-  text-overflow: ellipsis;
 }
 
-.learnMoreBtn {
-  margin-top: auto; /* Штовхає кнопку вниз, якщо тексту мало */
+.readMoreBtn {
   width: 100%;
   padding: 12px;
   background-color: var(--button);
   color: var(--white);
   border-radius: 12px;
-  text-align: center;
+  font-size: 16px;
+  line-height: 1.25;
   font-weight: 600;
+  text-align: center;
+
+  transition: background-color 250ms linear;
+}
+.readMoreBtn:hover {
+  background-color: var(--button-hover);
+}
+
+.favoriteBtn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+
+  background: transparent;
+  border: none;
+  padding: 0;
+  z-index: 10;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heartIcon {
+  fill: none;
+  stroke: var(--badges);
+  transition:
+    fill 250ms linear,
+    stroke 250ms linear;
+}
+
+.heartIcon.active {
+  fill: var(--button);
+  stroke: var(--button);
 }
