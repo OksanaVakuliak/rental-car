@@ -5,12 +5,20 @@ import Link from "next/link";
 import { Car } from "@/types/car";
 import { useFavoritesStore } from "@/store/useFavoritesStore";
 import css from "./CarCard.module.css";
+import { useState } from "react";
+import { Loader } from "../Loader/Loader";
 
 interface CarCardProps {
   car: Car;
 }
 
 export const CarCard = ({ car }: CarCardProps) => {
+  const [isRedirecting, setIsRedirecting] = useState(false);
+
+  const handleLinkClick = () => {
+    setIsRedirecting(true);
+  };
+
   const favorites = useFavoritesStore((state) => state.favorites);
   const toggleFavorite = useFavoritesStore((state) => state.toggleFavorite);
 
@@ -28,6 +36,11 @@ export const CarCard = ({ car }: CarCardProps) => {
 
   return (
     <div className={css.card}>
+      {isRedirecting && (
+        <div className={css.loaderOverlay}>
+          <Loader />
+        </div>
+      )}
       <div className={css.imageWrapper}>
         <Image
           src={car.img}
@@ -72,7 +85,11 @@ export const CarCard = ({ car }: CarCardProps) => {
         <span>{car.mileage.toLocaleString("en-US")} km</span>
       </div>
 
-      <Link href={`/catalog/${car.id}`} className={css.readMoreBtn}>
+      <Link
+        href={`/catalog/${car.id}`}
+        className={css.readMoreBtn}
+        onClick={handleLinkClick}
+      >
         Read more
       </Link>
     </div>

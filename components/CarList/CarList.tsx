@@ -49,6 +49,12 @@ export default function CarList({ initialCars, totalCars }: CarListProps) {
 
   return (
     <section className={css.section}>
+      {isLoading && (
+        <div className={css.loaderOverlay}>
+          <Loader />
+        </div>
+      )}
+
       <div className={css.grid}>
         {cars.map((car) => (
           <HydrationProvider key={car.id}>

@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 import { DatePicker } from "@mantine/dates";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { Loader } from "../Loader/Loader";
 
 const BookingSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
@@ -36,20 +37,29 @@ export const BookingForm = () => {
     comment: "",
   };
 
-  const handleSubmit = (
+  const handleSubmit = async (
     values: FormValues,
-    { resetForm }: FormikHelpers<FormValues>,
+    { resetForm, setSubmitting }: FormikHelpers<FormValues>,
   ) => {
-    const formattedData = {
-      ...values,
-      bookingDate: values.bookingDate
-        ? dayjs(values.bookingDate).format("YYYY-MM-DD")
-        : "",
-    };
-    console.log("Booking Data Sent:", formattedData);
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1500));
 
-    toast.success("Successful rental! We will contact you soon.");
-    resetForm();
+      const formattedData = {
+        ...values,
+        bookingDate: values.bookingDate
+          ? dayjs(values.bookingDate).format("YYYY-MM-DD")
+          : "",
+      };
+      console.log("Booking Data Sent:", formattedData);
+
+      toast.success("Successful rental! We will contact you soon.");
+      resetForm();
+    } catch {
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+      setOpened(false);
+    }
   };
 
   return (
@@ -65,98 +75,109 @@ export const BookingForm = () => {
         onSubmit={handleSubmit}
       >
         {({ isSubmitting, values, setFieldValue }) => (
-          <Form className={css.form} noValidate>
-            <div className={css.inputWrapper}>
-              <Field name="name" placeholder="Name*" className={css.input} />
-              <ErrorMessage name="name" component="div" className={css.error} />
-            </div>
-
-            <div className={css.inputWrapper}>
-              <Field
-                name="email"
-                type="email"
-                placeholder="Email*"
-                className={css.input}
-              />
-              <ErrorMessage
-                name="email"
-                component="div"
-                className={css.error}
-              />
-            </div>
-
-            <div className={css.inputWrapper}>
-              <Popover
-                opened={opened}
-                onChange={setOpened}
-                withArrow
-                shadow="md"
-              >
-                <Popover.Target>
-                  <div onClick={() => setOpened((o) => !o)}>
-                    <Field
-                      name="bookingDate"
-                      placeholder="Booking date"
-                      readOnly
-                      value={
-                        values.bookingDate
-                          ? dayjs(values.bookingDate).format("DD/MM/YYYY")
-                          : ""
-                      }
-                      className={css.input}
-                    />
-                  </div>
-                </Popover.Target>
-
-                <Popover.Dropdown className={css.calendarDropdown}>
-                  <DatePicker
-                    weekdayFormat={(date) => dayjs(date).format("ddd")}
-                    value={
-                      values.bookingDate ? new Date(values.bookingDate) : null
-                    }
-                    onChange={(date) => {
-                      setFieldValue("bookingDate", date);
-                      setOpened(false);
-                    }}
-                    minDate={new Date()}
-                    locale="en"
-                    getDayProps={(date) => ({
-                      style: dayjs(date).isSame(values.bookingDate, "day")
-                        ? { backgroundColor: "var(--button)", color: "white" }
-                        : {},
-                    })}
-                  />
-                </Popover.Dropdown>
+          <>
+            {isSubmitting && (
+              <div className={css.loaderOverlay}>
+                <Loader />
+              </div>
+            )}
+            <Form className={css.form} noValidate>
+              <div className={css.inputWrapper}>
+                <Field name="name" placeholder="Name*" className={css.input} />
                 <ErrorMessage
-                  name="bookingDate"
+                  name="name"
                   component="div"
                   className={css.error}
                 />
-              </Popover>
-            </div>
+              </div>
 
-            <div className={css.inputWrapper}>
-              <Field
-                name="comment"
-                as="textarea"
-                placeholder="Comment"
-                className={css.textarea}
-              />
-              <ErrorMessage
-                name="comment"
-                component="div"
-                className={css.error}
-              />
-            </div>
+              <div className={css.inputWrapper}>
+                <Field
+                  name="email"
+                  type="email"
+                  placeholder="Email*"
+                  className={css.input}
+                />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className={css.error}
+                />
+              </div>
 
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className={css.submitButton}
-            >
-              {isSubmitting ? "Sending..." : "Send"}
-            </button>
-          </Form>
+              <div className={css.inputWrapper}>
+                <Popover
+                  opened={opened}
+                  onChange={setOpened}
+                  withArrow
+                  shadow="md"
+                >
+                  <Popover.Target>
+                    <div onClick={() => setOpened((o) => !o)}>
+                      <Field
+                        name="bookingDate"
+                        placeholder="Booking date"
+                        readOnly
+                        value={
+                          values.bookingDate
+                            ? dayjs(values.bookingDate).format("DD/MM/YYYY")
+                            : ""
+                        }
+                        className={css.input}
+                      />
+                    </div>
+                  </Popover.Target>
+
+                  <Popover.Dropdown className={css.calendarDropdown}>
+                    <DatePicker
+                      weekdayFormat={(date) => dayjs(date).format("ddd")}
+                      value={
+                        values.bookingDate ? new Date(values.bookingDate) : null
+                      }
+                      onChange={(date) => {
+                        setFieldValue("bookingDate", date);
+                        setOpened(false);
+                      }}
+                      minDate={new Date()}
+                      locale="en"
+                      getDayProps={(date) => ({
+                        style: dayjs(date).isSame(values.bookingDate, "day")
+                          ? { backgroundColor: "var(--button)", color: "white" }
+                          : {},
+                      })}
+                    />
+                  </Popover.Dropdown>
+                  <ErrorMessage
+                    name="bookingDate"
+                    component="div"
+                    className={css.error}
+                  />
+                </Popover>
+              </div>
+
+              <div className={css.inputWrapper}>
+                <Field
+                  name="comment"
+                  as="textarea"
+                  placeholder="Comment"
+                  className={css.textarea}
+                />
+                <ErrorMessage
+                  name="comment"
+                  component="div"
+                  className={css.error}
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className={css.submitButton}
+              >
+                {isSubmitting ? "Sending..." : "Send"}
+              </button>
+            </Form>
+          </>
         )}
       </Formik>
     </div>
