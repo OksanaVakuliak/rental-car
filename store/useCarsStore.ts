@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { Car, CarQueryParams } from "@/types/car";
+import { create } from 'zustand';
+import { Car, CarQueryParams } from '@/types/car';
 
 interface CarsState {
   cars: Car[];
@@ -11,13 +11,13 @@ interface CarsState {
   resetCars: () => void;
 }
 
-export const useCarsStore = create<CarsState>((set) => ({
+export const useCarsStore = create<CarsState>(set => ({
   cars: [],
   totalCars: 0,
   filters: {},
 
   setFilteredCars: (cars, total) => set({ cars, totalCars: total }),
-  addCars: (newCars) => set((state) => ({ cars: [...state.cars, ...newCars] })),
-  setFilters: (filters) => set({ filters }),
+  addCars: newCars => set(state => ({ cars: [...state.cars, ...newCars] })),
+  setFilters: filters => set({ filters }),
   resetCars: () => set({ cars: [], totalCars: 0 }),
 }));

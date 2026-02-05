@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { Formik, Form, Field, FormikHelpers } from "formik";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Select } from "@mantine/core";
-import { clientApi } from "@/lib/clientApi";
-import { CarQueryParams, GetBrandsResponse } from "@/types/car";
-import * as Yup from "yup";
-import css from "./Filters.module.css";
-import { Loader } from "../Loader/Loader";
-import { useCarsStore } from "@/store/useCarsStore";
+import { useEffect, useState } from 'react';
+import { Formik, Form, Field, FormikHelpers } from 'formik';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Select } from '@mantine/core';
+import { clientApi } from '@/lib/clientApi';
+import { CarQueryParams, GetBrandsResponse } from '@/types/car';
+import * as Yup from 'yup';
+import css from './Filters.module.css';
+import { Loader } from '../Loader/Loader';
+import { useCarsStore } from '@/store/useCarsStore';
 
 export const Filters = () => {
   const router = useRouter();
@@ -17,8 +17,8 @@ export const Filters = () => {
   const [brands, setBrands] = useState<GetBrandsResponse>([]);
   const [isSearching, setIsSearching] = useState(false);
 
-  const resetCars = useCarsStore((state) => state.resetCars);
-  const setFilters = useCarsStore((state) => state.setFilters);
+  const resetCars = useCarsStore(state => state.resetCars);
+  const setFilters = useCarsStore(state => state.setFilters);
 
   useEffect(() => {
     clientApi.getBrands().then(setBrands).catch(console.error);
@@ -34,15 +34,15 @@ export const Filters = () => {
   });
 
   const initialValues: CarQueryParams = {
-    brand: searchParams.get("brand") || "",
-    rentalPrice: searchParams.get("rentalPrice") || "",
-    minMileage: searchParams.get("minMileage") || "",
-    maxMileage: searchParams.get("maxMileage") || "",
+    brand: searchParams.get('brand') || '',
+    rentalPrice: searchParams.get('rentalPrice') || '',
+    minMileage: searchParams.get('minMileage') || '',
+    maxMileage: searchParams.get('maxMileage') || '',
   };
 
   const handleSubmit = (
     values: CarQueryParams,
-    { setSubmitting }: FormikHelpers<CarQueryParams>,
+    { setSubmitting }: FormikHelpers<CarQueryParams>
   ) => {
     setIsSearching(true);
 
@@ -60,12 +60,12 @@ export const Filters = () => {
 
   const mileageValidationSchema = Yup.object().shape({
     minMileage: Yup.number()
-      .typeError("Must be a number")
-      .min(0, "Cannot be negative"),
+      .typeError('Must be a number')
+      .min(0, 'Cannot be negative'),
     maxMileage: Yup.number()
-      .typeError("Must be a number")
-      .min(0, "Cannot be negative")
-      .test("is-greater", "Must be greater than 'From'", function (value) {
+      .typeError('Must be a number')
+      .min(0, 'Cannot be negative')
+      .test('is-greater', "Must be greater than 'From'", function (value) {
         const { minMileage } = this.parent;
         return !value || !minMileage || value >= minMileage;
       }),
@@ -92,7 +92,7 @@ export const Filters = () => {
                 placeholder="Choose a brand"
                 data={brands}
                 value={values.brand}
-                onChange={(value) => setFieldValue("brand", value)}
+                onChange={value => setFieldValue('brand', value)}
                 searchable
                 clearable
               />
@@ -104,7 +104,7 @@ export const Filters = () => {
                 placeholder="Choose a price"
                 data={prices}
                 value={values.rentalPrice}
-                onChange={(value) => setFieldValue("rentalPrice", value)}
+                onChange={value => setFieldValue('rentalPrice', value)}
                 renderOption={({ option }) => option.value}
                 clearable
                 searchable

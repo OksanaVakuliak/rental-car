@@ -8,8 +8,8 @@
   --button: #3470ff;
   --button-hover: #0b44cd;
 
-  --font-family: "Manrope", sans-serif;
-  --second-family: "Inter", sans-serif;
+  --font-family: 'Manrope', sans-serif;
+  --second-family: 'Inter', sans-serif;
 
   --background: var(--white);
   --foreground: var(--main);

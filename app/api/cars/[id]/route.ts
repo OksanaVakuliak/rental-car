@@ -1,12 +1,12 @@
-import { NextRequest, NextResponse } from "next/server";
-import { isAxiosError } from "axios";
-import { Car } from "@/types/car";
-import api from "../../api";
-import { logErrorResponse } from "../../utils";
+import { NextRequest, NextResponse } from 'next/server';
+import { isAxiosError } from 'axios';
+import { Car } from '@/types/car';
+import api from '../../api';
+import { logErrorResponse } from '../../utils';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
 
@@ -18,13 +18,13 @@ export async function GET(
       logErrorResponse(error.response?.data);
       return NextResponse.json(
         { error: error.message, response: error.response?.data },
-        { status: error.status },
+        { status: error.status }
       );
     }
     logErrorResponse({ message: (error as Error).message });
     return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 },
+      { error: 'Internal Server Error' },
+      { status: 500 }
     );
   }
 }

@@ -1,23 +1,23 @@
-"use client";
+'use client';
 
-import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
-import * as Yup from "yup";
-import css from "./BookingForm.module.css";
-import { Popover } from "@mantine/core";
-import dayjs from "dayjs";
-import { DatePicker } from "@mantine/dates";
-import { useState } from "react";
-import toast from "react-hot-toast";
-import { Loader } from "../Loader/Loader";
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
+import * as Yup from 'yup';
+import css from './BookingForm.module.css';
+import { Popover } from '@mantine/core';
+import dayjs from 'dayjs';
+import { DatePicker } from '@mantine/dates';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
+import { Loader } from '../Loader/Loader';
 
 const BookingSchema = Yup.object().shape({
-  name: Yup.string().required("Name is required"),
-  email: Yup.string().email("Invalid email").required("Email is required"),
+  name: Yup.string().required('Name is required'),
+  email: Yup.string().email('Invalid email').required('Email is required'),
   bookingDate: Yup.date()
-    .required("Date is required")
-    .typeError("Please enter a valid date")
+    .required('Date is required')
+    .typeError('Please enter a valid date')
     .nullable(),
-  comment: Yup.string().max(100, "Maximum 100 characters allowed").optional(),
+  comment: Yup.string().max(100, 'Maximum 100 characters allowed').optional(),
 });
 
 interface FormValues {
@@ -31,31 +31,31 @@ export const BookingForm = () => {
   const [opened, setOpened] = useState(false);
 
   const initialValues: FormValues = {
-    name: "",
-    email: "",
-    bookingDate: "",
-    comment: "",
+    name: '',
+    email: '',
+    bookingDate: '',
+    comment: '',
   };
 
   const handleSubmit = async (
     values: FormValues,
-    { resetForm, setSubmitting }: FormikHelpers<FormValues>,
+    { resetForm, setSubmitting }: FormikHelpers<FormValues>
   ) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      await new Promise(resolve => setTimeout(resolve, 1500));
 
       const formattedData = {
         ...values,
         bookingDate: values.bookingDate
-          ? dayjs(values.bookingDate).format("YYYY-MM-DD")
-          : "",
+          ? dayjs(values.bookingDate).format('YYYY-MM-DD')
+          : '',
       };
-      console.log("Booking Data Sent:", formattedData);
+      console.log('Booking Data Sent:', formattedData);
 
-      toast.success("Successful rental! We will contact you soon.");
+      toast.success('Successful rental! We will contact you soon.');
       resetForm();
     } catch {
-      toast.error("Something went wrong. Please try again.");
+      toast.error('Something went wrong. Please try again.');
     } finally {
       setSubmitting(false);
       setOpened(false);
@@ -113,15 +113,15 @@ export const BookingForm = () => {
                   shadow="md"
                 >
                   <Popover.Target>
-                    <div onClick={() => setOpened((o) => !o)}>
+                    <div onClick={() => setOpened(o => !o)}>
                       <Field
                         name="bookingDate"
                         placeholder="Booking date"
                         readOnly
                         value={
                           values.bookingDate
-                            ? dayjs(values.bookingDate).format("DD/MM/YYYY")
-                            : ""
+                            ? dayjs(values.bookingDate).format('DD/MM/YYYY')
+                            : ''
                         }
                         className={css.input}
                       />
@@ -130,19 +130,19 @@ export const BookingForm = () => {
 
                   <Popover.Dropdown className={css.calendarDropdown}>
                     <DatePicker
-                      weekdayFormat={(date) => dayjs(date).format("ddd")}
+                      weekdayFormat={date => dayjs(date).format('ddd')}
                       value={
                         values.bookingDate ? new Date(values.bookingDate) : null
                       }
-                      onChange={(date) => {
-                        setFieldValue("bookingDate", date);
+                      onChange={date => {
+                        setFieldValue('bookingDate', date);
                         setOpened(false);
                       }}
                       minDate={new Date()}
                       locale="en"
-                      getDayProps={(date) => ({
-                        style: dayjs(date).isSame(values.bookingDate, "day")
-                          ? { backgroundColor: "var(--button)", color: "white" }
+                      getDayProps={date => ({
+                        style: dayjs(date).isSame(values.bookingDate, 'day')
+                          ? { backgroundColor: 'var(--button)', color: 'white' }
                           : {},
                       })}
                     />
@@ -174,7 +174,7 @@ export const BookingForm = () => {
                 disabled={isSubmitting}
                 className={css.submitButton}
               >
-                {isSubmitting ? "Sending..." : "Send"}
+                {isSubmitting ? 'Sending...' : 'Send'}
               </button>
             </Form>
           </>

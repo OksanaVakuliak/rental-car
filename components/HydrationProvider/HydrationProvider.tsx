@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useSyncExternalStore, ReactNode } from "react";
+import { useSyncExternalStore, ReactNode } from 'react';
 
 const emptySubscribe = () => () => {};
 
@@ -8,7 +8,7 @@ export const HydrationProvider = ({ children }: { children: ReactNode }) => {
   const isMounted = useSyncExternalStore(
     emptySubscribe,
     () => true,
-    () => false,
+    () => false
   );
 
   if (!isMounted) {

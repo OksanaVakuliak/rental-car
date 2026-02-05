@@ -1,8 +1,8 @@
-import Link from "next/link";
-import css from "./not-found.module.css";
+import Link from 'next/link';
+import css from './not-found.module.css';
 
 export const metadata = {
-  title: "404 - Page Not Found",
+  title: '404 - Page Not Found',
 };
 
 export default function NotFound() {

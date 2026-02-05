@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { Toaster } from "react-hot-toast";
-import css from "./ToastProvider.module.css";
+import { Toaster } from 'react-hot-toast';
+import css from './ToastProvider.module.css';
 
 export const ToastProvider = () => {
   return (
@@ -15,15 +15,15 @@ export const ToastProvider = () => {
         success: {
           className: `${css.toast} ${css.toastSuccess}`,
           iconTheme: {
-            primary: "#3470FF",
-            secondary: "#ffffff",
+            primary: '#3470FF',
+            secondary: '#ffffff',
           },
         },
         error: {
           className: `${css.toast} ${css.toastError}`,
           iconTheme: {
-            primary: "#EF4444",
-            secondary: "#ffffff",
+            primary: '#EF4444',
+            secondary: '#ffffff',
           },
         },
       }}

@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
-import { Car } from "@/types/car";
-import { clientApi } from "@/lib/clientApi";
-import { CarCard } from "../CarCard/CarCard";
-import css from "./CarList.module.css";
-import { HydrationProvider } from "@/components/HydrationProvider/HydrationProvider";
-import { Loader } from "../Loader/Loader";
-import { useCarsStore } from "@/store/useCarsStore";
-import toast from "react-hot-toast";
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { Car } from '@/types/car';
+import { clientApi } from '@/lib/clientApi';
+import { CarCard } from '../CarCard/CarCard';
+import css from './CarList.module.css';
+import { HydrationProvider } from '@/components/HydrationProvider/HydrationProvider';
+import { Loader } from '../Loader/Loader';
+import { useCarsStore } from '@/store/useCarsStore';
+import toast from 'react-hot-toast';
 
 interface CarListProps {
   initialCars: Car[];
@@ -21,9 +21,9 @@ export default function CarList({ initialCars, totalCars }: CarListProps) {
   const [isLoading, setIsLoading] = useState(false);
   const searchParams = useSearchParams();
 
-  const cars = useCarsStore((state) => state.cars);
-  const setFilteredCars = useCarsStore((state) => state.setFilteredCars);
-  const addCars = useCarsStore((state) => state.addCars);
+  const cars = useCarsStore(state => state.cars);
+  const setFilteredCars = useCarsStore(state => state.setFilteredCars);
+  const addCars = useCarsStore(state => state.addCars);
 
   useEffect(() => {
     setFilteredCars(initialCars, totalCars);
@@ -40,16 +40,16 @@ export default function CarList({ initialCars, totalCars }: CarListProps) {
       const response = await clientApi.getCars({
         ...currentParams,
         page: nextPage.toString(),
-        limit: "12",
+        limit: '12',
       });
 
       addCars(response.cars);
       setPage(nextPage);
     } catch (error) {
       const errorMessage =
-        error instanceof Error ? error.message : "An unknown error occurred";
+        error instanceof Error ? error.message : 'An unknown error occurred';
 
-      console.error("Load more error:", error);
+      console.error('Load more error:', error);
       toast.error(`Error: ${errorMessage}`);
     } finally {
       setIsLoading(false);
@@ -65,7 +65,7 @@ export default function CarList({ initialCars, totalCars }: CarListProps) {
       )}
 
       <div className={css.grid}>
-        {cars.map((car) => (
+        {cars.map(car => (
           <HydrationProvider key={car.id}>
             <CarCard car={car} />
           </HydrationProvider>
