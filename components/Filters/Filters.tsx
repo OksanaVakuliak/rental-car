@@ -44,17 +44,24 @@ export const Filters = () => {
     values: CarQueryParams,
     { setSubmitting }: FormikHelpers<CarQueryParams>
   ) => {
-    setIsSearching(true);
-
-    resetCars();
-
-    setFilters(values);
-
     const params = new URLSearchParams();
     Object.entries(values).forEach(([key, value]) => {
       if (value) params.set(key, value.toString());
     });
-    router.push(`/catalog?${params.toString()}`);
+
+    const newQueryString = params.toString();
+    const currentQueryString = searchParams.toString();
+
+    if (newQueryString === currentQueryString) {
+      setSubmitting(false);
+      return;
+    }
+
+    setIsSearching(true);
+    resetCars();
+    setFilters(values);
+
+    router.push(`/catalog?${newQueryString}`);
     setSubmitting(false);
   };
 

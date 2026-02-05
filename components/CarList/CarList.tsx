@@ -28,6 +28,7 @@ export default function CarList({ initialCars, totalCars }: CarListProps) {
   useEffect(() => {
     setFilteredCars(initialCars, totalCars);
     setPage(1);
+    setIsLoading(false);
   }, [initialCars, totalCars, setFilteredCars]);
 
   const handleLoadMore = async () => {
