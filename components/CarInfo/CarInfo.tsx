@@ -1,5 +1,5 @@
-import { Car } from "@/types/car";
-import css from "./CarInfo.module.css";
+import { Car } from '@/types/car';
+import css from './CarInfo.module.css';
 
 interface CarInfoProps {
   car: Car;
@@ -8,9 +8,9 @@ interface CarInfoProps {
 export const CarInfo = ({ car }: CarInfoProps) => {
   const conditions = car.rentalConditions || [];
 
-  const addressParts = car.address?.split(",") || [];
-  const city = addressParts[1]?.trim() || "";
-  const country = addressParts[2]?.trim() || "";
+  const addressParts = car.address?.split(',') || [];
+  const city = addressParts[1]?.trim() || '';
+  const country = addressParts[2]?.trim() || '';
 
   const shortId = car.id.slice(0, 4).toUpperCase();
 
@@ -47,7 +47,7 @@ export const CarInfo = ({ car }: CarInfoProps) => {
       <p className={css.description}>{car.description}</p>
 
       <section className={css.section}>
-        <h3 className={css.sectionTitle}>Rental Conditions:</h3>
+        <h2 className={css.sectionTitle}>Rental Conditions:</h2>
         <ul className={css.conditionsList}>
           {conditions.map((condition, index) => (
             <li key={index} className={css.conditionItem}>
@@ -61,7 +61,7 @@ export const CarInfo = ({ car }: CarInfoProps) => {
       </section>
 
       <section className={css.section}>
-        <h3 className={css.sectionTitle}>Car Specifications:</h3>
+        <h2 className={css.sectionTitle}>Car Specifications:</h2>
         <ul className={css.specsList}>
           <li className={css.specItem}>
             <svg className={css.specIcon} width="16" height="16">
@@ -91,7 +91,7 @@ export const CarInfo = ({ car }: CarInfoProps) => {
       </section>
 
       <section className={css.section}>
-        <h3 className={css.sectionTitle}>Accessories and functionalities:</h3>
+        <h2 className={css.sectionTitle}>Accessories and functionalities:</h2>
         <ul className={css.featureList}>
           {allFeatures.map((feature, index) => (
             <li key={index} className={css.featureItem}>

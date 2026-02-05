@@ -74,16 +74,26 @@ export const BookingForm = () => {
         validationSchema={BookingSchema}
         onSubmit={handleSubmit}
       >
-        {({ isSubmitting, values, setFieldValue }) => (
+        {({ isSubmitting, values, setFieldValue, errors, touched }) => (
           <>
             {isSubmitting && (
-              <div className={css.loaderOverlay}>
+              <div className={css.loaderOverlay} role="alert" aria-busy="true">
                 <Loader />
               </div>
             )}
             <Form className={css.form} noValidate>
               <div className={css.inputWrapper}>
-                <Field name="name" placeholder="Name*" className={css.input} />
+                <label htmlFor="name" className="visually-hidden">
+                  Full Name
+                </label>
+                <Field
+                  id="name"
+                  name="name"
+                  placeholder="Name*"
+                  className={css.input}
+                  aria-required="true"
+                  aria-invalid={touched.name && !!errors.name}
+                />
                 <ErrorMessage
                   name="name"
                   component="div"
@@ -92,11 +102,17 @@ export const BookingForm = () => {
               </div>
 
               <div className={css.inputWrapper}>
+                <label htmlFor="email" className="visually-hidden">
+                  Email Address
+                </label>
                 <Field
+                  id="email"
                   name="email"
                   type="email"
                   placeholder="Email*"
                   className={css.input}
+                  aria-required="true"
+                  aria-invalid={touched.email && !!errors.email}
                 />
                 <ErrorMessage
                   name="email"
@@ -106,6 +122,9 @@ export const BookingForm = () => {
               </div>
 
               <div className={css.inputWrapper}>
+                <label htmlFor="booking-date-input" className="visually-hidden">
+                  Booking Date
+                </label>
                 <Popover
                   opened={opened}
                   onChange={setOpened}
@@ -113,19 +132,23 @@ export const BookingForm = () => {
                   shadow="md"
                 >
                   <Popover.Target>
-                    <div onClick={() => setOpened(o => !o)}>
-                      <Field
-                        name="bookingDate"
-                        placeholder="Booking date"
-                        readOnly
-                        value={
-                          values.bookingDate
-                            ? dayjs(values.bookingDate).format('DD/MM/YYYY')
-                            : ''
-                        }
-                        className={css.input}
-                      />
-                    </div>
+                    <Field
+                      id="booking-date-input"
+                      name="bookingDate"
+                      placeholder="Booking date"
+                      readOnly
+                      value={
+                        values.bookingDate
+                          ? dayjs(values.bookingDate).format('DD/MM/YYYY')
+                          : ''
+                      }
+                      onClick={() => setOpened(o => !o)}
+                      className={css.input}
+                      aria-required="true"
+                      aria-haspopup="dialog"
+                      aria-expanded={opened}
+                      role="combobox"
+                    />
                   </Popover.Target>
 
                   <Popover.Dropdown className={css.calendarDropdown}>
@@ -156,11 +179,16 @@ export const BookingForm = () => {
               </div>
 
               <div className={css.inputWrapper}>
+                <label htmlFor="comment" className="visually-hidden">
+                  Comment
+                </label>
                 <Field
+                  id="comment"
                   name="comment"
                   as="textarea"
                   placeholder="Comment"
                   className={css.textarea}
+                  aria-label="Add a comment"
                 />
                 <ErrorMessage
                   name="comment"

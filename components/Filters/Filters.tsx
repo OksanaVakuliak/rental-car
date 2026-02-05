@@ -102,6 +102,9 @@ export const Filters = () => {
                 onChange={value => setFieldValue('brand', value)}
                 searchable
                 clearable
+                aria-label="Select car brand"
+                aria-expanded="false"
+                role="combobox"
               />
             </div>
 
@@ -115,30 +118,49 @@ export const Filters = () => {
                 renderOption={({ option }) => option.value}
                 clearable
                 searchable
+                aria-label="Select car price"
+                aria-expanded="false"
+                role="combobox"
               />
             </div>
 
             <div className={css.mileageWrapper}>
-              <label className={css.label}>Car mileage / km</label>
-              <div className={css.mileageInputs}>
+              <label id="mileage-label" className={css.label}>
+                Car mileage / km
+              </label>
+              <div
+                className={css.mileageInputs}
+                role="group"
+                aria-labelledby="mileage-label"
+              >
                 <div className={css.inputContainer}>
-                  <span className={css.prefix}>From</span>
+                  <span className={css.prefix} aria-hidden="true">
+                    From
+                  </span>
                   <Field
+                    id="minMileage"
                     name="minMileage"
                     type="number"
                     className={`${css.input} ${css.inputLeft}`}
+                    aria-label="Minimum mileage"
                   />
                   {touched.minMileage && errors.minMileage && (
-                    <div className={css.errorLabel}>{errors.minMileage}</div>
+                    <div className={css.errorLabel} role="alert">
+                      {errors.minMileage}
+                    </div>
                   )}
                 </div>
 
                 <div className={css.inputContainer}>
-                  <span className={css.prefix}>To</span>
+                  <span className={css.prefix} aria-hidden="true">
+                    To
+                  </span>
                   <Field
+                    id="maxMileage"
                     name="maxMileage"
                     type="number"
                     className={`${css.input} ${css.inputRight}`}
+                    aria-label="Maximum mileage"
                   />
                   {touched.maxMileage && errors.maxMileage && (
                     <div className={css.errorLabel}>{errors.maxMileage}</div>

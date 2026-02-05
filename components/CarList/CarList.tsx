@@ -58,7 +58,7 @@ export default function CarList({ initialCars, totalCars }: CarListProps) {
   };
 
   return (
-    <section className={css.section}>
+    <div className={css.container}>
       {isLoading && (
         <div className={css.loaderOverlay}>
           <Loader />
@@ -82,6 +82,6 @@ export default function CarList({ initialCars, totalCars }: CarListProps) {
           Load more
         </button>
       )}
-    </section>
+    </div>
   );
 }

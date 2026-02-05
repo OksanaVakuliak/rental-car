@@ -20,7 +20,6 @@ const theme = createTheme({
     Select: Select.extend({
       defaultProps: {
         withCheckIcon: false,
-
         rightSection: <CustomChevron />,
         rightSectionPointerEvents: 'none',
         clearable: true,
@@ -77,6 +76,11 @@ const theme = createTheme({
       defaultProps: {
         withArrow: true,
         arrowSize: 12,
+        transitionProps: {
+          transition: 'scale-y',
+          duration: 250,
+          timingFunction: 'linear',
+        },
       },
       classNames: {
         dropdown: css.popoverDropdown,

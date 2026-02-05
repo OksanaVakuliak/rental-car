@@ -33,7 +33,7 @@ export default async function CatalogPage({ searchParams }: PageProps) {
   });
 
   return (
-    <section className={css.section}>
+    <div className={css.container}>
       <Suspense fallback={<Loader />}>
         <Filters />
 
@@ -42,6 +42,6 @@ export default async function CatalogPage({ searchParams }: PageProps) {
           totalCars={initialData.totalCars}
         />
       </Suspense>
-    </section>
+    </div>
   );
 }

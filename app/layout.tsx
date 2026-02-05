@@ -6,15 +6,13 @@ import { Providers } from '@/components/MantineProvider/MantineProvider';
 import { ToastProvider } from '@/components/ToastProvider/ToastProvider';
 import { Suspense } from 'react';
 import Loading from './loading';
+import { ColorSchemeScript } from '@mantine/core';
 
 const manrope = Manrope({ subsets: ['latin'], weight: ['400', '500', '600'] });
 
 export const metadata: Metadata = {
   title: 'RentalCar - Find your perfect car',
   description: 'Car rental service in Ukraine',
-  icons: {
-    icon: '/favicon.svg',
-  },
 };
 
 export default function RootLayout({
@@ -23,8 +21,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={manrope.className}>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <ColorSchemeScript />
+      </head>
+      <body className={manrope.className} suppressHydrationWarning>
         <Providers>
           <Header />
           <Suspense fallback={<Loading />}>{children}</Suspense>
