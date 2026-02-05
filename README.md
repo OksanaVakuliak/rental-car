@@ -47,7 +47,7 @@ with ease.
 ### 1. Clone the repository
 
 ```bash
-git clone [https://github.com/your-username/rental-car.git](https://github.com/your-username/rental-car.git)
+git clone https://github.com/OksanaVakuliak/rental-car.git
 cd rental-car
 ```
 
