@@ -86,3 +86,18 @@ Open http://localhost:3000 with your browser to see the result.
 /types - TypeScript interfaces and types.
 
 /public - Static assets (Favicon, Sprite, Images).
+
+---
+
+## 👩‍💻 Author
+
+**Oksana Vakuliak**
+*Fullstack Developer (Frontend focused)*
+
+- **LinkedIn:** [linkedin.com/in/oksana-vakuliak/](https://www.linkedin.com/in/oksana-vakuliak/)
+- **GitHub:** [@OksanaVakuliak](https://github.com/OksanaVakuliak)
+
+
+## 🤝 Contributing
+
+This project was developed as a part of a technical assignment. While it's not open for major contributions, feel free to fork it and explore the code!
