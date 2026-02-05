@@ -44,7 +44,7 @@ with ease.
 
 ## 🚀 Getting Started
 
-### 1. Clone the repository
+1. **Clone the repository:**
 
 ```bash
 git clone https://github.com/OksanaVakuliak/rental-car.git
