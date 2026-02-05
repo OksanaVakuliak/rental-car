@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚗 Rental Car - Premium Service
 
-## Getting Started
+A modern, high-performance car rental application built with **Next.js 16** (App
+Router). This platform allows users to browse a vast catalog of premium cars,
+filter them by specific criteria, manage favorites, and book their next ride
+with ease.
 
-First, run the development server:
+**[🌐 Live Demo](https://rental-car-zeta-sandy.vercel.app/)**
+
+---
+
+## ✨ Features
+
+- **Dynamic Car Catalog**: Browse a wide range of vehicles with smooth
+  pagination.
+- **Advanced Filtering**: Filter cars by brand, hourly price, and mileage range.
+- **Real-time Search**: Instant UI updates without page reloads using optimized
+  state management.
+- **Detailed Car View**: Comprehensive technical specifications for every
+  vehicle.
+- **Booking System**: Integrated booking form with client-side validation.
+- **Favorites Management**: Save your preferred cars to a persistent favorites
+  list.
+- **Fully Responsive**: Optimized for desktops, tablets, and mobile devices.
+- **SEO Optimized**: Dynamic metadata and Open Graph support for every page.
+
+---
+
+## 🛠 Tech Stack
+
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router, Server
+  Components)
+- **State Management**: [Zustand](https://zustand-demo.pmnd.rs/) (Global store
+  for cars and favorites)
+- **UI Components**: [Mantine UI](https://mantine.dev/) (Selects, Hooks, Dates)
+- **Form Management**: [Formik](https://formik.org/) &
+  [Yup](https://github.com/jquense/yup) (Validation)
+- **HTTP Client**: [Axios](https://axios-http.com/)
+- **Styling**: CSS Modules
+- **Notifications**: [React Hot Toast](https://react-hot-toast.com/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the repository
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone [https://github.com/your-username/rental-car.git](https://github.com/your-username/rental-car.git)
+cd rental-car
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Install dependencies:**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. **Environment Variables:** Create a .env.local file in the root directory and
+   add the following variables:
 
-## Learn More
+```env
+NEXT_PUBLIC_API_BASE_URL='https://car-rental-api.goit.global'
+NEXT_PUBLIC_LOCAL_API_URL='http://localhost:3000/api'
+```
 
-To learn more about Next.js, take a look at the following resources:
+4.  **Run the development server:**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+ npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Open http://localhost:3000 with your browser to see the result.
 
-## Deploy on Vercel
+## 📂 Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+/app - Next.js App Router (Pages and API routes).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+/components - Reusable UI components (CarCard, Filters, Loader, etc.).
+
+/store - Zustand stores for global state management.
+
+/lib - API clients and utility functions.
+
+/types - TypeScript interfaces and types.
+
+/public - Static assets (Favicon, Sprite, Images).
