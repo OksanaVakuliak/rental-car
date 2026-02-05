@@ -9,12 +9,16 @@ import { CarQueryParams, GetBrandsResponse } from "@/types/car";
 import * as Yup from "yup";
 import css from "./Filters.module.css";
 import { Loader } from "../Loader/Loader";
+import { useCarsStore } from "@/store/useCarsStore";
 
 export const Filters = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [brands, setBrands] = useState<GetBrandsResponse>([]);
   const [isSearching, setIsSearching] = useState(false);
+
+  const resetCars = useCarsStore((state) => state.resetCars);
+  const setFilters = useCarsStore((state) => state.setFilters);
 
   useEffect(() => {
     clientApi.getBrands().then(setBrands).catch(console.error);
@@ -41,6 +45,10 @@ export const Filters = () => {
     { setSubmitting }: FormikHelpers<CarQueryParams>,
   ) => {
     setIsSearching(true);
+
+    resetCars();
+
+    setFilters(values);
 
     const params = new URLSearchParams();
     Object.entries(values).forEach(([key, value]) => {

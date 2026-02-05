@@ -8,6 +8,8 @@ import { CarCard } from "../CarCard/CarCard";
 import css from "./CarList.module.css";
 import { HydrationProvider } from "@/components/HydrationProvider/HydrationProvider";
 import { Loader } from "../Loader/Loader";
+import { useCarsStore } from "@/store/useCarsStore";
+import toast from "react-hot-toast";
 
 interface CarListProps {
   initialCars: Car[];
@@ -15,15 +17,18 @@ interface CarListProps {
 }
 
 export default function CarList({ initialCars, totalCars }: CarListProps) {
-  const [cars, setCars] = useState<Car[]>(initialCars);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const searchParams = useSearchParams();
 
+  const cars = useCarsStore((state) => state.cars);
+  const setFilteredCars = useCarsStore((state) => state.setFilteredCars);
+  const addCars = useCarsStore((state) => state.addCars);
+
   useEffect(() => {
-    setCars(initialCars);
+    setFilteredCars(initialCars, totalCars);
     setPage(1);
-  }, [initialCars]);
+  }, [initialCars, totalCars, setFilteredCars]);
 
   const handleLoadMore = async () => {
     const nextPage = page + 1;
@@ -38,10 +43,14 @@ export default function CarList({ initialCars, totalCars }: CarListProps) {
         limit: "12",
       });
 
-      setCars((prev) => [...prev, ...response.cars]);
+      addCars(response.cars);
       setPage(nextPage);
     } catch (error) {
-      console.error("Failed to load more cars:", error);
+      const errorMessage =
+        error instanceof Error ? error.message : "An unknown error occurred";
+
+      console.error("Load more error:", error);
+      toast.error(`Error: ${errorMessage}`);
     } finally {
       setIsLoading(false);
     }
