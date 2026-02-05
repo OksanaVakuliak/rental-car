@@ -1,17 +1,20 @@
-import type { Metadata } from "next";
-import { Manrope } from "next/font/google";
-import "./globals.css";
-import Header from "@/components/Header/Header";
-import { Providers } from "@/components/MantineProvider/MantineProvider";
-import { ToastProvider } from "@/components/ToastProvider/ToastProvider";
-import { Suspense } from "react";
-import Loading from "./loading";
+import type { Metadata } from 'next';
+import { Manrope } from 'next/font/google';
+import './globals.css';
+import Header from '@/components/Header/Header';
+import { Providers } from '@/components/MantineProvider/MantineProvider';
+import { ToastProvider } from '@/components/ToastProvider/ToastProvider';
+import { Suspense } from 'react';
+import Loading from './loading';
 
-const manrope = Manrope({ subsets: ["latin"], weight: ["400", "500", "600"] });
+const manrope = Manrope({ subsets: ['latin'], weight: ['400', '500', '600'] });
 
 export const metadata: Metadata = {
-  title: "RentalCar - Find your perfect car",
-  description: "Car rental service in Ukraine",
+  title: 'RentalCar - Find your perfect car',
+  description: 'Car rental service in Ukraine',
+  icons: {
+    icon: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({

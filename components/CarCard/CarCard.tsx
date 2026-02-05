@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import Link from "next/link";
-import { Car } from "@/types/car";
-import { useFavoritesStore } from "@/store/useFavoritesStore";
-import css from "./CarCard.module.css";
-import { useState } from "react";
-import { Loader } from "../Loader/Loader";
+import Image from 'next/image';
+import Link from 'next/link';
+import { Car } from '@/types/car';
+import { useFavoritesStore } from '@/store/useFavoritesStore';
+import css from './CarCard.module.css';
+import { useState } from 'react';
+import { Loader } from '../Loader/Loader';
 
 interface CarCardProps {
   car: Car;
@@ -19,10 +19,10 @@ export const CarCard = ({ car }: CarCardProps) => {
     setIsRedirecting(true);
   };
 
-  const favorites = useFavoritesStore((state) => state.favorites);
-  const toggleFavorite = useFavoritesStore((state) => state.toggleFavorite);
+  const favorites = useFavoritesStore(state => state.favorites);
+  const toggleFavorite = useFavoritesStore(state => state.toggleFavorite);
 
-  const favorite = favorites.some((fav) => fav.id === car.id);
+  const favorite = favorites.some(fav => fav.id === car.id);
 
   const handleFavoriteClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -30,9 +30,10 @@ export const CarCard = ({ car }: CarCardProps) => {
     toggleFavorite(car);
   };
 
-  const addressParts = car.address.split(",");
-  const city = addressParts[1]?.trim() || "Unknown";
-  const country = addressParts[2]?.trim() || "Unknown";
+  const addressParts = car.address.split(',');
+  const city = addressParts[1]?.trim() || 'Unknown';
+  const country = addressParts[2]?.trim() || 'Unknown';
+  const formattedMileage = new Intl.NumberFormat('fr-FR').format(car.mileage);
 
   return (
     <div className={css.card}>
@@ -48,20 +49,20 @@ export const CarCard = ({ car }: CarCardProps) => {
           fill
           sizes="274px"
           className={css.image}
-          style={{ objectFit: "cover" }}
+          style={{ objectFit: 'cover' }}
         />
         <button
           type="button"
           className={css.favoriteBtn}
           onClick={handleFavoriteClick}
-          aria-label={favorite ? "Remove from favorites" : "Add to favorites"}
+          aria-label={favorite ? 'Remove from favorites' : 'Add to favorites'}
         >
           <svg
             width="16"
             height="16"
-            className={`${css.heartIcon} ${favorite ? css.active : ""}`}
+            className={`${css.heartIcon} ${favorite ? css.active : ''}`}
           >
-            <use href={`/sprite.svg#${favorite ? "love-blue" : "love"}`} />
+            <use href={`/sprite.svg#${favorite ? 'love-blue' : 'love'}`} />
           </svg>
         </button>
       </div>
@@ -82,7 +83,7 @@ export const CarCard = ({ car }: CarCardProps) => {
         <span className={css.divider}>|</span>
         <span>{car.type}</span>
         <span className={css.divider}>|</span>
-        <span>{car.mileage.toLocaleString("en-US")} km</span>
+        <span>{formattedMileage} km</span>
       </div>
 
       <Link

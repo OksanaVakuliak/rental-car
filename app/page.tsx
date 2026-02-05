@@ -1,6 +1,6 @@
-import Image from "next/image";
-import Link from "next/link";
-import css from "./HomePage.module.css";
+import Image from 'next/image';
+import Link from 'next/link';
+import css from './HomePage.module.css';
 
 export default function HomePage() {
   return (
