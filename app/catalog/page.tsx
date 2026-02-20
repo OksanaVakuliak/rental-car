@@ -35,7 +35,7 @@ export default async function CatalogPage({ searchParams }: PageProps) {
   return (
     <div className={css.container}>
       <Suspense fallback={<Loader />}>
-        <Filters />
+        {/* <Filters /> */}
 
         <CarList
           initialCars={initialData.cars}
