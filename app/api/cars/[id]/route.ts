@@ -21,7 +21,8 @@ export async function GET(
         { status: error.status }
       );
     }
-    logErrorResponse({ message: (error as Error).message });
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    logErrorResponse({ message: errorMessage });
     return NextResponse.json(
       { error: 'Internal Server Error' },
       { status: 500 }

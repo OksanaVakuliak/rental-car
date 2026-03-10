@@ -11,6 +11,19 @@ import css from './Filters.module.css';
 import { Loader } from '../Loader/Loader';
 import { useCarsStore } from '@/store/useCarsStore';
 
+const mileageValidationSchema = Yup.object().shape({
+  minMileage: Yup.number()
+    .typeError('Must be a number')
+    .min(0, 'Cannot be negative'),
+  maxMileage: Yup.number()
+    .typeError('Must be a number')
+    .min(0, 'Cannot be negative')
+    .test('is-greater', "Must be greater than 'From'", function (value) {
+      const { minMileage } = this.parent;
+      return !value || !minMileage || value >= minMileage;
+    }),
+});
+
 export const Filters = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -21,7 +34,19 @@ export const Filters = () => {
   const setFilters = useCarsStore(state => state.setFilters);
 
   useEffect(() => {
-    clientApi.getBrands().then(setBrands).catch(console.error);
+    let isMounted = true;
+    
+    clientApi.getBrands()
+      .then((data) => {
+        if (isMounted) setBrands(data);
+      })
+      .catch((error) => {
+        if (isMounted) console.error(error);
+      });
+      
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {
@@ -64,19 +89,6 @@ export const Filters = () => {
     router.push(`/catalog?${newQueryString}`);
     setSubmitting(false);
   };
-
-  const mileageValidationSchema = Yup.object().shape({
-    minMileage: Yup.number()
-      .typeError('Must be a number')
-      .min(0, 'Cannot be negative'),
-    maxMileage: Yup.number()
-      .typeError('Must be a number')
-      .min(0, 'Cannot be negative')
-      .test('is-greater', "Must be greater than 'From'", function (value) {
-        const { minMileage } = this.parent;
-        return !value || !minMileage || value >= minMileage;
-      }),
-  });
 
   return (
     <>

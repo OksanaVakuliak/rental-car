@@ -50,8 +50,6 @@ export const BookingForm = () => {
           ? dayjs(values.bookingDate).format('YYYY-MM-DD')
           : '',
       };
-      console.log('Booking Data Sent:', formattedData);
-
       toast.success('Successful rental! We will contact you soon.');
       resetForm();
     } catch {

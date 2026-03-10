@@ -5,6 +5,9 @@ import css from './CarDetailPage.module.css';
 import { notFound } from 'next/navigation';
 import { CarInfo } from '@/components/CarInfo/CarInfo';
 import { Metadata } from 'next';
+import { cache } from 'react';
+
+const getCachedCar = cache((id: string) => clientApi.getCarById(id).catch(() => null));
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -14,7 +17,7 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { id } = await params;
-  const car = await clientApi.getCarById(id).catch(() => null);
+  const car = await getCachedCar(id);
 
   if (!car) {
     return {
@@ -39,7 +42,7 @@ export async function generateMetadata({
 export default async function CarDetailPage({ params }: PageProps) {
   const { id } = await params;
 
-  const car = await clientApi.getCarById(id).catch(() => null);
+  const car = await getCachedCar(id);
 
   if (!car) return notFound();
 

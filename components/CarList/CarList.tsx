@@ -50,7 +50,6 @@ export default function CarList({ initialCars, totalCars }: CarListProps) {
       const errorMessage =
         error instanceof Error ? error.message : 'An unknown error occurred';
 
-      console.error('Load more error:', error);
       toast.error(`Error: ${errorMessage}`);
     } finally {
       setIsLoading(false);
